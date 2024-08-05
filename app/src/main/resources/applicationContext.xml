@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<beans:bean id="tv" class="com.yedam.spring.TV"></beans:bean>
+	
+	<!-- DI : XML 방식 -->
+	<!-- <bean id="chef" class="com.yedam.app.xml.Chef"></bean> -->
+	<bean class="com.yedam.app.xml.Restaurant">
+	
+	<!-- 생성자 인젝션 (해당 클래스의 생성자를 활용하겠다) //최초에만 한번 주입하고 이후 변동가능성 없을 때 -->
+	<!-- <constructor-arg ref="chef"></constructor-arg> -->
+	<!-- 세터 인젝션(해당 bean이 가지고 있는 세터를 사용하겠다) // 추후 변동가능성이 있을 때 --> 
+	<!-- <property name="chef" ref="chef"></property> -->
+	</bean>
+	
+	<!-- DI : 어노테이션 방식 -->
+	<!-- <context:component-scan base-package="com.yedam.app.anotation"></context:component-scan> -->
+	
+	<!-- DI: 자바 베이스 방식 -->
+	<context:component-scan base-package="com.yedam.app.javabase"></context:component-scan>
+	
+</beans>

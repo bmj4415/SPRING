@@ -17,6 +17,7 @@ class Boot01ApplicationTests {
 
 	@Autowired //필드주입(보안문제가 있어 실제 사용x test 환경에서만)
 	EmpMapper empMapper;
+	//Spring은 EmpMapper 인터페이스의 구현객체를 찾아서 empMapper 변수에 자동으로 주입
 	
 	//전체조회 test
 	@Test
@@ -26,7 +27,7 @@ class Boot01ApplicationTests {
 	}
 	
 	//단건조회 test
-	@Test
+	//@Test
 	void empInfo() {
 		EmpVO empVO = new EmpVO();
 		empVO.setEmployeeId(100);
@@ -51,7 +52,7 @@ class Boot01ApplicationTests {
 	}
 	
 	//수정
-	@Test
+	//@Test
 	public void empUpdate() {
 		
 		//1) 수정 작업 전 기존 데이터 단건조회

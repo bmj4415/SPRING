@@ -53,6 +53,7 @@
 
 	<!-- 등록 -->
 	<insert id="insertEmpInfo" parameterType="EmpVO">
+	<!-- selectKey : 기본키 생성 -->
 		<selectKey keyProperty="employeeId" resultType="Integer"
 			order="BEFORE">
 			SELECT NVL(MAX(employee_id), 0) + 1

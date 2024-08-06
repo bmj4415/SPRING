@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- emp-map.xml -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.app.emp.mapper.EmpMapper">
+
+
+	<!-- 전체조회 -->
+	<select id="selectEmpAllList" resultType="EmpVO">
+		SELECT employee_id,
+		first_name,
+		last_name,
+		email,
+		phone_number,
+		hire_date,
+		job_id,
+		salary,
+		commission_pct,
+		manager_id,
+		department_id
+		FROM employees
+		<!-- Dynamic sql -->
+		<!-- where절에 태그를 넣은 이유 : 검색조건이 없으면(false) where절이 생성되지 않음 -->
+		<where>
+			<if test="departmentId > 0"> <!-- departmentId(필드)의 타입이 int이기 때문에 0보다 >< -->
+				OR department_id = #{departmentId}
+			</if>
+			<if test="jobId != null and !jobId.equals('')"> <!-- String 타입은 공백이 들어올 수 있기 때문에 하나 더 고려해야함 -->
+				OR job_id = #{jobId}
+			</if>
+		</where>
+		<!-- if절이 false값인 경우는 자동으로 제외되고 true 값인 경우가 하나라도 있으면 where절이 살아남음 -->
+		ORDER BY employee_id
+	</select>
+
+	<!-- 단건조회 -->
+	<select id="selectEmpInfo" resultType="EmpVO">
+		SELECT employee_id
+		,
+		first_name
+		, last_name
+		, email
+		, phone_number
+		, hire_date
+		, job_id
+		, salary
+		, commission_pct
+		, manager_id
+		, department_id
+		FROM employees
+		WHERE
+		employee_id = #{employeeId}
+	</select>
+
+	<!-- 등록 -->
+	<insert id="insertEmpInfo" parameterType="EmpVO">
+		<selectKey keyProperty="employeeId" resultType="Integer"
+			order="BEFORE">
+			SELECT NVL(MAX(employee_id), 0) + 1
+			FROM employees
+			<!-- null 값이 나올 수 있기 때문에 NVL -->
+		</selectKey>
+		<!-- notnull 제약조건이 있는 경우만 insert함 -->
+		INSERT INTO employees
+		(
+		employee_id
+		, last_name
+		, email
+		, job_id
+		, hire_date
+		<if test="salary > 0"> <!-- check 제약조건이 있는 경우 -->
+			, salary
+		</if>
+		)
+		VALUES
+		(
+		#{employeeId}
+		, #{lastName}
+		, #{email}
+		, #{jobId}
+		<choose>
+			<when test="hireDate != null">
+				, #{hireDate}
+			</when>
+			<otherwise>
+				, sysdate
+			</otherwise>
+		</choose>
+		<if test="salary > 0">
+			, #{salary}
+		</if>
+		)
+	</insert>
+
+	<!-- 수정 -->
+	<update id="updateEmpInfo">
+		UPDATE employees
+		SET
+		last_name = #{emp.lastName}
+		, job_id = #{emp.jobId}
+		<if test="emp.salary > 0">
+			, salary = #{emp.salary}
+		</if>
+		WHERE employee_id = #{id}
+
+	</update>
+	<!-- 삭제 -->
+	<delete id="deleteEmpInfo" parameterType="int">
+		DELETE FROM employees
+		WHERE employee_id = #{eid}
+
+	</delete>
+
+</mapper>

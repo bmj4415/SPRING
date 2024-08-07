@@ -22,7 +22,7 @@ default값은 get 방식(특히나 브라우저에서 경로로 찾아가는 경
 여러개의 값을 하나의 객체로 받을 때 => 커맨드 객체
 하나의 값을 받을 때 => @RequestParam
 
-* @DateTimeFormat(pattern = "yyyy-MM-dd") : 대소문자 구분함
+* @DateTimeFormat(pattern = "yyyy-MM-dd") : 대소문자 구분함(대문자 MM은 월을 의미하고, 소문자 mm은 분(minute)을 의미)
 
 ViewResolver : 실제로 존재하는 위치를 반환해주는 Bean(공통경로는 ViewResolver가 채워주고 나머지 파일정보만 개발자가 적어주면 됨)
 *Thymeleaf ViewResolver

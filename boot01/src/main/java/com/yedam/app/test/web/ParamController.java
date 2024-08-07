@@ -37,7 +37,7 @@ public class ParamController {
 	@RequestMapping(path="reqparm", method= {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public String requestParam(@RequestParam Integer employeeId, String lastName, //필수(Integer employeeId) //생략가능(String lastName) => @RequestParam의 여부에 따라 다름
-							   @RequestParam(name="msg", defaultValue="No message", required=true) String msg) { //name : name에 지정된 이름으로 쓰겠다
+							   @RequestParam(name="msg", defaultValue="No message", required=true) String msg) { //name => 사용자 요청사항에서 name에 지정된 값을 찾음. required=true => 필수 요청, 만약 사용자가 필수요소 부분을 요청하지 않으면 예외를 발생시키지만 defaultValue 값을 지정해놓았기 때문에 예외를 발생시키지 않고 기본값을 출력함.
 		String result ="";
 		result += "path : /reqparm \n";
 		result += "\t employee_id : " + employeeId;

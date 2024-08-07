@@ -2,6 +2,8 @@ package com.yedam.app.emp.service;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -19,6 +21,7 @@ public class EmpVO {
 	private String lastName;
 	private String email;
 	private String phoneNumber;
+	@DateTimeFormat(pattern = "yyyy-MM-dd") //이 어노테이션을 쓰는 경우 yyyy/MM/dd를 할 경우 오류가 날 수 있음(둘 중 택1)
 	private Date hireDate;
 	private String jobId;
 	private double salary;

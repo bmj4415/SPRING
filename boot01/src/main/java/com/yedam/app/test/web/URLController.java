@@ -2,6 +2,7 @@ package com.yedam.app.test.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,10 +15,17 @@ public class URLController {
 	
 	//권장방식
 	@GetMapping("/test")
-	
+	 
 	@ResponseBody
 	public String urlGetTest(String keyword) { //경로, 메소드
 		return "Server Response : Get Method\n Select - " + keyword;
+	}
+	
+	//@RequestMapping(path="/test", method=RequestMethod.POST)
+	@PostMapping("/test")
+	@ResponseBody
+	public String urlPostTest(String keyword) {
+		return "Server Response : Post Method\n Select - " + keyword;
 	}
 
 }

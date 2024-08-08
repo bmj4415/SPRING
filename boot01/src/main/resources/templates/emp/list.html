@@ -28,7 +28,7 @@
 						<td th:text="${info.employeeId}"></td>
 						<td th:text="${info.firstName}"></td>
 						<!-- /*<td>[[${info.hireDate}]]</td>*/ --> <!--/* th:text나 [[]] 둘 다 text 속성을 다루는건 맞지만 [[]] 이걸 더 많이 씀*/-->
-						<td>[[${#dates.format(info.hireDate, 'yyyy년 MM월 dd일')}]]</td> <!-- #을 붙이면 내장객체 검색함 -->
+						<td>[[${#dates.format(info.hireDate, 'yyyy년 MM월 dd일')}]]</td> <!-- #을 붙이면 내장객체 검색함, 날짜 출력과 관련됨 -->
 						<td>[[${info.jobId}]]</td>
 					</tr>
 				</th:block>
@@ -36,7 +36,7 @@
 		</table>
 	</div>
 	<script>
-	const context = $('meta[name="contextPath"]').attr('value');
+	const context = $('meta[name="contextPath"]').attr('value'); // meta 태그 중 name이 "contextPath"인 태그의 value 속성을 가져와서 context 변수에 저장
 	$('tbody > tr').on('click', function(event){
 		let tr = event.currentTarget; //target:실제 이벤트가 발생한 대상(고정값), currentTarget: 이벤트가 등록되고 동작되고 있는 대상(유동적)
 		let eid = $(event.currentTarget).children().eq(1).text(); //eq : 결과들(시작지점은 0) 

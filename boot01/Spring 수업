@@ -35,3 +35,65 @@ suffix : .html
 순환참조 오류 : 본인 스스로를 필드주입할 때 생기는 오류
 
 ※ 302번
+
+
+
+4일차>>
+
+
+server.servlet.context-path=/yedam : 추후 프로젝트가 마무리되면 경로에 /yedam이 추가되면서 링크 표현식으로 쓰지 않게 되면 경로를 못 찾아서 에러가 발생함.
+									 직접 경로를 입력하는 경우 모두 찾아서 변경해야함. 따라서 링크표현식으로 사용하면 아주 편리함.
+									 
+<html xmlns:th="https://www.thymeleaf.org/"></html>
+: 타임리프를 쓰기 위해 꼭 써줘야함							
+==> 템플릿으로 등록하고 간편하게 불러서 쓰기
+
+<th:block th:each=""> ==> 타임리프 반복문을 쓸때는 무조건 each는 block과 함께 쓴다!
+
+http://localhost:8099/yedam/empInfo?employeeId=100
+(EmpController 파일참조, EmpVO empVO에 어노테이션이 없고 객체타입이므로 커맨드 타입)
+커맨드 객체 => queryString
+		  => key=value&key=value
+		  => 따라서 employeeId=100
+		  
+((list 파일))
+
+getContextPath : 		  
+
+location.href='/yedam/empInfo?employeeId=100
+: 현재 동적입력값이 너무 많음(/yedam, employeeId=100)
+
+location.href='@{/empInfo(employeeId=${info.employeeId})}'
+
+변형>> |location.href='@{/empInfo(employeeId=${info.employeeId})}'|
+==> 괄호를 이용해서 뒤쪽의 동적입력값을 처리할 공간을 따로 마련해줌(key=value 형식)
+| | : 내부를 분석해서 코드를 실행하고 보이는 그대로 출력해달라는 뜻에서 달아줌.
+
+※key=value&key=value ==> 링크표현식에서는 최대한 특수문자를 줄이고자 & 대신 , 를 씀. key=value, key=value 
+
+location.href='/yedam/empList'
+
+button))
+|location.href='@{/empList}'|
+
+
+* 타임리프 => 자바기반 언어(라이브러리)
+
+
+변수표현식 => 객체를 매핑(th:object="${}"시켜 th:field=*{}를 필요한 곳에 삽입. *{}의 *는 객체필드를 말함. id, name, value를 타임리프가 지원
+
+FormData : 멀티미디어를 ajax 방법으로 보내는 메소드
+
+{
+ employeeId : 100,
+ lastName : 'Hong',
+ email : ~
+ 
+}
+
+
+
+
+
+
+		 

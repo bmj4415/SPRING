@@ -21,6 +21,8 @@ public String thymeleafTest(Model model) {
 	
 	EmpVO findVO = empService.empInfo(empVO);
 	model.addAttribute("empInfo", findVO);
+	//model.addAttribute => 클라이언트가 아니라 request에 일시적으로 담았다가 페이지에 전달
+	
 	return "test";
 }
 }

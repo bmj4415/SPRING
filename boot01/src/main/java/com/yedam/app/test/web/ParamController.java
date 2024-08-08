@@ -61,7 +61,7 @@ public class ParamController {
 	
 	//@RequestBody
 	// : JSON 포맷, 배열 or 객체
-	// Method : POST, PUT(json은 경로에 포함될 수 없는 문자열이기 때문에 기본적으로 body가 필요함) // Content-type: application/json
+	// Method : POST, PUT(json은 경로에 포함될 수 없는 문자열이라 기본적으로 body가 필요하기 때문에) // Content-type: application/json
 	
 	@PostMapping("resbody")
 	@ResponseBody

@@ -69,8 +69,6 @@ public class EmpController {
 	}
 	
 	//등록 - 처리 : POST => form 태그를 통한 submit
-	//
-	
 	@PostMapping("empInsert")
 	public String empInsertProcess(EmpVO empVO) {
 		int eid = empService.empInsert(empVO);
@@ -81,9 +79,9 @@ public class EmpController {
 			url = "redirect:empInfo?employeeId=" + eid;
 		} else {
 			//등록되지 않은 경우
-			url = "redirect:empList";
+			url = "redirect:empList"; //페이지가 아니라 url
 		}
-		return "url";
+		return url;
 	}
 	
 	//수정 - 페이지 : Get(=단건조회)
@@ -96,20 +94,20 @@ public class EmpController {
 	
 	
 	//수정 - 처리 (AJAX => QueryString으로 값을 받음)
-	@PostMapping("empUpdate")
-	@ResponseBody // AJAX를 의미하며 존재하는 위치는 return 위(return하는 내용을 클라이언트에게 돌려주기 위함)
-	public Map<String, Object> empupdateAJAXQueryString(EmpVO empVO) {
+	//@PostMapping("empUpdate")
+	@ResponseBody // AJAX 존재하는 위치는 return 위(return하는 내용을 클라이언트에게 돌려주기 위함)
+	public Map<String, Object> empupdateAJAXQueryString( EmpVO empVO) {
 		return empService.empUpdate(empVO);
 	}
 	
 	
 	
-//	//수정 - 처리 (AJAX => JSON으로 값을 받음)
-//	@PostMapping("empUpdate")
-//	@ResponseBody 
-//	public Map<String, Object> empupdateAJAXJSON(@RequestBody EmpVO empVO) {
-//		return empService.empUpdate(empVO);
-//	}
+	//수정 - 처리 (AJAX => JSON으로 값을 받음)
+	@PostMapping("empUpdate")
+	@ResponseBody 
+	public Map<String, Object> empupdateAJAXJSON(@RequestBody EmpVO empVO) {
+		return empService.empUpdate(empVO);
+	}
 	
 	
 	

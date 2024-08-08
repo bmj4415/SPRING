@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+	<form name="updateForm" th:object="${emp}"><!-- EmpController의 변수명과 같아야함 -->
+		<h3>사원 정보 수정</h3>
+		<div>
+			<label for="eid">사원번호</label> 
+            <input type="text" th:field="*{employeeId}" readonly><!-- th:value="${}" 대신 객체 선택 변수표현식 -->
+		</div>
+		<div>
+			<label for="ename">이름</label> 
+            <input type="text" th:field="*{lastName}">
+		</div>
+		<div>
+			<label for="email">이메일</label> 
+            <input type="email" th:field="*{email}">
+		</div>
+		<div>
+			<label for="hDate">입사일</label> 
+            <input type="date" th:field="*{hireDate}"> <!-- 만약 표현식을 쓰지않고 기존의 방식대로 쓸거면 @DateTimeFormat(pattern = "yyyy-MM-dd")이 있어야함 -->
+		</div>
+		<div>
+			<label for="job">업무</label> 
+            <input type="text" th:field="*{jobId}">
+		</div>
+		<div>
+			<label for="sal">급여</label> 
+            <input type="number" th:field="*{salary}">
+		</div>
+		<div>
+			<button type="button" id="updateBtn">등록</button><!-- submit type은 폼액션이 없어도 새로고침됨 // type에 값을 입력하지 않으면 default값이 submit이니까 button-->
+		</div>
+	</form>
+	<script>
+	$('#updateBtn').on('click', updateAjax)
+		function updateAjax(event){
+			//1) 보낼 데이터 가져오기
+			let dataObj = getFormData();
+			//2) AJAX
+			$.ajax('empUpdate', {
+				type : 'post', //(:method)
+				contentType : 'application/json', //어차피 쿼리스티링이기 때문에
+				data : JSON.stringify(dataObj)
+				//data : dataObj //(:body)
+			})
+			.done(result => { //.then과 같은 의미
+				console.log(result);
+			})
+			.fail(err => console.log(err)); //catch와 같은 의미(에러처리)
+			
+		}
+	function getFormData(){
+		let formAry = $('form[name="updateForm"]')
+						.serializeArray();
+		
+		let formObj = {};
+		$.each(formAry, function(idx, tag) {
+			console.log(idx, tag);
+			console.log('key', tag.name); //tag가 가지고 있는 name이 key값이 되어줘야함
+			console.log('value', tag.value); //tag가 가지고 있는 value값이 value
+			console.log(tag.name + ' : ' + tag.value);
+			
+			formObj[tag.name] = tag.value; //fromObj 안에 필드명과 값을 재배치
+		});
+		console.clear();
+		console.log(formObj);
+		return formObj;
+	}
+	</script>
+</body>
+</html>

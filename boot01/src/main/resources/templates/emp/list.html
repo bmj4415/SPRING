@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/">
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
 <head>
 <meta charset="UTF-8">
 <meta name="contextPath" th:value="${contextPath}">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<th:block th:replace="~{common/configs/default_config :: jQueryConfig}"></th:block>
+<!--/* 어떤 파일에 들어있는 Fagment를 가지고 올지 경로까지 모두 작성 */-->
 </head>
 <body>
 	<div>
@@ -20,15 +25,19 @@
 				</tr>
 			</thead>
 			<tbody>
-				<th:block th:each="info, stats : ${emps}"><!-- , stats(이름은 상관없음) : , 두번째 값 => 반복문의 상태값을 가져오게됨. -->
+				<th:block th:each="info, stats : ${emps}">
+					<!-- , stats(이름은 상관없음) : , 두번째 값 => 반복문의 상태값을 가져오게됨. -->
 					<!-- 반복하고자 하는 태그 -->
 					<!-- /*<tr th:onclick="|location.href='@{/empInfo(employeeId=${info.employeeId})}'|">*/ -->
-						<tr>
-						<td>[[${stats.count}]]</td> <!-- count 대신 index를 쓰게 되면 첫번째 값이 0으로 출력 -->
+					<tr>
+						<td>[[${stats.count}]]</td>
+						<!-- count 대신 index를 쓰게 되면 첫번째 값이 0으로 출력 -->
 						<td th:text="${info.employeeId}"></td>
 						<td th:text="${info.firstName}"></td>
-						<!-- /*<td>[[${info.hireDate}]]</td>*/ --> <!--/* th:text나 [[]] 둘 다 text 속성을 다루는건 맞지만 [[]] 이걸 더 많이 씀*/-->
-						<td>[[${#dates.format(info.hireDate, 'yyyy년 MM월 dd일')}]]</td> <!-- #을 붙이면 내장객체 검색함, 날짜 출력과 관련됨 -->
+						<!-- /*<td>[[${info.hireDate}]]</td>*/ -->
+						<!--/* th:text나 [[]] 둘 다 text 속성을 다루는건 맞지만 [[]] 이걸 더 많이 씀*/-->
+						<td>[[${#dates.format(info.hireDate, 'yyyy년 MM월 dd일')}]]</td>
+						<!-- #을 붙이면 내장객체 검색함, 날짜 출력과 관련됨 -->
 						<td>[[${info.jobId}]]</td>
 					</tr>
 				</th:block>
@@ -36,13 +45,13 @@
 		</table>
 	</div>
 	<script>
-	const context = $('meta[name="contextPath"]').attr('value'); // meta 태그 중 name이 "contextPath"인 태그의 value 속성을 가져와서 context 변수에 저장
-	$('tbody > tr').on('click', function(event){
-		let tr = event.currentTarget; //target:실제 이벤트가 발생한 대상(고정값), currentTarget: 이벤트가 등록되고 동작되고 있는 대상(유동적)
-		let eid = $(event.currentTarget).children().eq(1).text(); //eq : 결과들(시작지점은 0) 
-		let url= context + '/empInfo?employeeId=' + eid;
-		location.href=url;
-	});
+		const context = $('meta[name="contextPath"]').attr('value'); // meta 태그 중 name이 "contextPath"인 태그의 value 속성을 가져와서 context 변수에 저장
+		$('tbody > tr').on('click', function(event) {
+			let tr = event.currentTarget; //target:실제 이벤트가 발생한 대상(고정값), currentTarget: 이벤트가 등록되고 동작되고 있는 대상(유동적)
+			let eid = $(event.currentTarget).children().eq(1).text(); //eq : 결과들(시작지점은 0) 
+			let url = context + '/empInfo?employeeId=' + eid;
+			location.href = url;
+		});
 	</script>
 </body>
 </html>

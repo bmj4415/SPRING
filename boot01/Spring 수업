@@ -1,99 +1,54 @@
-3일차>>
+5일차>>
 
-
-
-@Controller 하위의 어노테이션은 크게 2가지로 나뉘어지고 자세한 사항은 05ppt 18p 참조
-@ResponseBody : ajax 전용 어노테이션
-
-default값은 get 방식(특히나 브라우저에서 경로로 찾아가는 경우는 더더욱)
-
-* Content-Type : Request 객체에 담긴 데이터의 포맷(형식) *
-
-1) Application/x-www-form-urlencode
- =>	key=value&key=value&... /QueryString(질의문자열) 형식, 일반적으로 가장 많이 쓰임.
-	예) form을 기준으로 예시 : name=value&name=value&... 
-
-2) Application/json 
- => { "key" : "value", "key" : "value", ...} /JSON 형식
-
-3) multipart/form-data
- => 파일이 가진 모든 정보를 보내야하기 때문에 임의의 인코딩을 거치지 않고 바이너리 스트링 방식을 취함.
- 
-여러개의 값을 하나의 객체로 받을 때 => 커맨드 객체
-하나의 값을 받을 때 => @RequestParam
-
-* @DateTimeFormat(pattern = "yyyy-MM-dd") : 대소문자 구분함(대문자 MM은 월을 의미하고, 소문자 mm은 분(minute)을 의미)
-
-ViewResolver : 실제로 존재하는 위치를 반환해주는 Bean(공통경로는 ViewResolver가 채워주고 나머지 파일정보만 개발자가 적어주면 됨)
-*Thymeleaf ViewResolver
-prefix : classpath:/templates/
-suffix : .html
-
-예) emp/list
-=> classpath:/templates/emp/list.html => 
-
-순환참조 오류 : 본인 스스로를 필드주입할 때 생기는 오류
-
-※ 302번
-
-
-
-4일차>>
-
-
-server.servlet.context-path=/yedam : 추후 프로젝트가 마무리되면 경로에 /yedam이 추가되면서 링크 표현식으로 쓰지 않게 되면 경로를 못 찾아서 에러가 발생함.
-									 직접 경로를 입력하는 경우 모두 찾아서 변경해야함. 따라서 링크표현식으로 사용하면 아주 편리함.
-									 
-<html xmlns:th="https://www.thymeleaf.org/"></html>
-: 타임리프를 쓰기 위해 꼭 써줘야함							
-==> 템플릿으로 등록하고 간편하게 불러서 쓰기
-
-<th:block th:each=""> ==> 타임리프 반복문을 쓸때는 무조건 each는 block과 함께 쓴다!
-
-http://localhost:8099/yedam/empInfo?employeeId=100
-(EmpController 파일참조, EmpVO empVO에 어노테이션이 없고 객체타입이므로 커맨드 타입)
-커맨드 객체 => queryString
-		  => key=value&key=value
-		  => 따라서 employeeId=100
-		  
-((list 파일))
-
-getContextPath : 		  
-
-location.href='/yedam/empInfo?employeeId=100
-: 현재 동적입력값이 너무 많음(/yedam, employeeId=100)
-
-location.href='@{/empInfo(employeeId=${info.employeeId})}'
-
-변형>> |location.href='@{/empInfo(employeeId=${info.employeeId})}'|
-==> 괄호를 이용해서 뒤쪽의 동적입력값을 처리할 공간을 따로 마련해줌(key=value 형식)
-| | : 내부를 분석해서 코드를 실행하고 보이는 그대로 출력해달라는 뜻에서 달아줌.
-
-※key=value&key=value ==> 링크표현식에서는 최대한 특수문자를 줄이고자 & 대신 , 를 씀. key=value, key=value 
-
-location.href='/yedam/empList'
-
-button))
-|location.href='@{/empList}'|
-
-
-* 타임리프 => 자바기반 언어(라이브러리)
-
-
-변수표현식 => 객체를 매핑(th:object="${}"시켜 th:field=*{}를 필요한 곳에 삽입. *{}의 *는 객체필드를 말함. id, name, value를 타임리프가 지원
-
-FormData : 멀티미디어를 ajax 방법으로 보내는 메소드
-
-{
- employeeId : 100,
- lastName : 'Hong',
- email : ~
- 
-}
-
-
-
-
-
-
+* Fragments => '조각'개념.
+: 페이지를 여러개 만들었을 때 => 공통된 요소들이 존재하고 그 부분들을 한 공간(별도의 페이지)에 모아놓고 필요한 경우 그 요소들을 불러와서 사용하는 개념.(타일즈와 비슷한개념이지만 별도의 라이브러리가 필요없다는 차이점이 있음)
+  하나의 페이지에 여러개의 Fragments가 존재할 수 있음(폴더 common, config 생성 // config : head(공통된 설정요소)
+  사용하기 위해서는 fagment 선언이 필요함(th:fragment="fragment 이름")		
+		 사용방법 => replace(해당 태그를 대체), insert(하위태그로 들어간다) 예) th:replace="~{common/configs/default_config :: jQueryConfig}"
 		 
+ fragments 폴더 : header, sidebar, footer  
+ layouts 폴더 : fragments 폴더의 내용을 적용
+ 
+ <<SOP, CORS>> (주체 : 브라우저)
+ Same-Origin-Policy : 같은 오리진(프로토콜, 호스트명, 포트가 같음)을 공유하는 내가 만든 페이지만 접근이 가능 
+ Cross-Origin Resource Sharing : 예외사항을 두고 다른 오리진 사이의(Cross-Origin) 2가지 방식으로(토큰, 오리진 설정) Resrouce를 공유하는 정책                               
+ 
+ ==> 서버사이의 통신 : CORS를 회피하기 위한 방법은 아니었지만 화면단에서 AJAX끼리의 통신이 워낙 활발하다보니 사용빈도수가 떨어졌을뿐.
+ 				    특정시간/특정 주기별로 데이터를 업데이트 해야하는 경우 서버끼리의 통신을 이용함(예:일일 날씨 업데이트)
+ 
+집가서 확인> 기존의 전통방식(page기반)의 컨트롤러가 아니라 REST방식으로 컨트롤러를 만들기(EmpRestController)
+ 
+ RestController의 경우 페이지가 필요없기 때문에 컨트롤러가 하나씩이면 됨.
+ querystring, json (필요에 따라(예:상세검색)
+집가서 확인> 수정 : PUT => emps/100(2가지 방식 혼용 : 경로에 값이 없는 경우도 있음)
+ 
+ ?뒤 : 데이터로 인식
+ /뒤 : 경로로 인식
+ 
+ rest방식의 통신방식은 json이 기본 => 데이터만 넘어옴
+ REST : URI 설계
+ 
+ <AOP>  
+ 1) 관심분리 : 횡단관심 / 핵심관심 2가지로 분리
+횡단관심(=부가기능) : 메소드를 옆으로 나열시켰을 때 공통적인 요소(로깅처리, 권한체크, 트랜잭션처리, 예외처리) => 부가기능을 모듈형태로 설계하고 개발 : AOP
+핵심관심 : 횡단관심을 분리하고 남은 핵심 로직에 관한 부분 
+
+분리하는 이유 ==> 유지보수
+
+AOP는 설계가 쉽지 않음(데이터를 넘기는 부분에서)
+공통적으로 추가해야할 부분이 생기면 AOP를 적용시키는걸 고려해볼것
+
+pom.xml => 메이븐 사이트에서 spring boot AOP 검색 후 첫번째 => (아무 버전이나 상관없음)pom.xml에 추가
+
+*Autocommit을 해제해야 할 사항
+: 은행예금 출금 => 입급 
+ 
+ <트랜잭션 AOP>
+ 사용장소 : @Service가 붙은 메소드 위에 사용
+ 
+  
+ 
+ <<과제>>
+ department 테이블 활용
+ VO, 매퍼, 서비스, 컨트롤러(REST 방식 제외), 화면 추가
+ 

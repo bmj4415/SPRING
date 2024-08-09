@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"><!-- 현재 페이지에서 레이아웃과 관련된 기능을 쓰겠다 -->
+<head>
+<meta charset="UTF-8">
+<th:block th:replace="~{common/configs/default_config :: jQueryConfig}"></th:block> 
+<th:block th:replace="~{common/configs/default_config :: BootstrapConfig}"></th:block> 
+<body>
+
+<header th:insert="~{common/fragments/header :: HeaderFrag}"></header><!-- insert : 호출당하는 본인이 하위태그로 들어감 -->
+
+<main>
+<th:block layout:fragment="Content"></th:block><!-- 레이아웃 삽입(Content라는 이름으로 우리가 만든 컨텐츠들을 등록) -->
+</main>
+
+<footer th:replace="~{common/fragments/footer :: FooterFrag}"></footer>
+
+</body>
+</html>

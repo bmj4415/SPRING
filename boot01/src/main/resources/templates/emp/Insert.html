@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/">
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
 <head>
 <meta charset="UTF-8">
 <title></title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<th:block th:replace="~{common/configs/default_config :: jQueryConfig}"></th:block> 
 </head>
 <body>
 	<form th:action="@{/empInsert}" method="post" name="insertForm">
@@ -76,7 +78,5 @@
 			insertForm.submit();
 		}
 	</script>
-
-	</div>
 </body>
 </html>

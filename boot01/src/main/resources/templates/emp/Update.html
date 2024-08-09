@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/">
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<th:block th:replace="~{common/configs/default_config :: jQueryConfig}"></th:block> 
 </head>
 <body>
 	<form name="updateForm" th:object="${emp}"><!-- EmpController의 변수명과 같아야함 -->
@@ -44,7 +47,7 @@
 			//2) AJAX
 			$.ajax('empUpdate', {
 				type : 'post', //(:method)
-				contentType : 'application/json', //어차피 쿼리스티링이기 때문에
+				contentType : 'application/json', //(QueryString 방식으로 보낼 경우 작성 x : 어차피 쿼리스티링이기 때문에)
 				data : JSON.stringify(dataObj)
 				//data : dataObj //(:body)
 			})

@@ -74,7 +74,7 @@
 		)
 		VALUES
 		(
-		#{employeeId}
+		#{employeeId} <!-- ?가 아닌 #{}을 사용하는 이유: SQL 쿼리를 최적화, 매핑을 더 쉽게 처리 -->
 		, #{lastName}
 		, #{email}
 		, #{jobId}

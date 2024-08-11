@@ -58,8 +58,7 @@
 			
 		}
 	function getFormData(){
-		let formAry = $('form[name="updateForm"]')
-						.serializeArray();
+		let formAry = $('form[name="updateForm"]').serializeArray(); //serializeArray : 특정 폼 안에 있는 모든 입력값을 한 번에 수집, 객체(키,값)로 구성된 배열로 변환
 		
 		let formObj = {};
 		$.each(formAry, function(idx, tag) {
@@ -68,7 +67,7 @@
 			console.log('value', tag.value); //tag가 가지고 있는 value값이 value
 			console.log(tag.name + ' : ' + tag.value);
 			
-			formObj[tag.name] = tag.value; //fromObj 안에 필드명과 값을 재배치
+			formObj[tag.name] = tag.value; //fromObj 안에 필드명과 값을 재배치(name:value)
 		});
 		console.clear();
 		console.log(formObj);

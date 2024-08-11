@@ -6,7 +6,7 @@
 
 <head>
 <meta charset="UTF-8">
-<meta name="contextPath" th:value=${contextPath}>
+<meta name="contextPath" th:value="${contextPath}">
 <title>Insert title here</title>
 
 <th:block th:replace="~{common/configs/default_config :: jQueryConfig}"></th:block>
@@ -20,7 +20,7 @@
 				<tr>
 					<th>No.</th>
 					<th>부서번호</th>
-					<th>부서이름</th>
+					<th>부서명</th>
 					<th>관리자</th>
 					<th>부서위치</th>
 				</tr>
@@ -43,7 +43,7 @@
 	$('tbody > tr').on('click', function(event) {
 		let tr = event.currentTarget;
 		let deptId = $(event.currentTarget).children().eq(1).text();
-		let url = context + '/deptInfo?departmentId=' + deptid;
+		let url = context + '/deptInfo?departmentId=' + deptId;
 		location.href = url;
 	});
 	</script>

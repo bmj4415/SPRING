@@ -40,13 +40,13 @@
 			INSERT INTO departments (
 				department_id 
 				, department_name
-				, manager_name
+				, manager_id
 				, location_id
 				)
 				VALUES (
 				#{departmentId}
 				, #{departmentName}
-				, #{managerName}
+				, #{managerId}
 				, #{locationId}
 			)
 		</if>
@@ -55,7 +55,9 @@
 	<!-- 수정 -->
 	<update id="updateDeptInfo">
 		UPDATE departments
-		SET    department_name = #{departmentName}
+		SET    
+		manager_id = #{dept.managerId}
+		, location_id = #{dept.locationId}
 		WHERE  department_id = #{id}
 	</update>
 	

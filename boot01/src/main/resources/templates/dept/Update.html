@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<th:block th:replace="~{common/configs/default_config :: jQueryConfig}"></th:block>
+</head>
+<body>
+	<form name="updateForm" th:object="${dept}">
+		<h3>부서 정보 수정</h3>
+		<div>
+			<label for="deptId">부서번호</label>
+			<input type="text" th:field="*{departmentId}" readonly>
+		</div>
+		<div>
+			<label for="deptName">부서명</label>
+			<input type="text" th:field="*{departmentName}" readonly>
+		</div>
+		<div>
+			<label for="mId">관리자</label>
+			<input type="text" th:field="*{managerId}">
+		</div>
+		<div>
+			<label for="lId">부서위치</label>
+			<input type="text" th:field="*{locationId}">
+		</div>
+		<div>
+			<button type="button" id="updateBtn">등록</button>
+		</div>
+	</form>
+		<script>
+		
+		function getFormData(){
+			let formAry = $('form[name="updateForm"]').serializeArray();
+			
+			let formObj = {};
+			$.each(formAry, function(idx, keyVal) {
+				formObj[keyVal.name] = keyVal.value;
+			});
+			return formObj;
+		}
+	
+		$('#updateBtn').on('click', updateAjax)
+		function updateAjax(event){
+			//1)보낼 데이터 가져오기 2) Ajax
+			let dataObj = getFormData();
+			$.ajax('deptUpdate', {
+				type : 'post',
+				data : dataObj
+			})
+			.done(result => {})
+			.fail(err => console.log(err));
+		}
+		</script>
+</body>
+</html>

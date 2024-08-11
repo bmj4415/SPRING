@@ -1,5 +1,6 @@
 package com.yedam.app.dept.service.Impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,41 +23,43 @@ public class DeptServiceImpl implements DeptService{
 
 	@Override
 	public List<DeptVO> deptList() {
-		// TODO Auto-generated method stub
-		return null;
+		return deptMapper.selectDeptAllList();
 	}
 
 	@Override
 	public DeptVO deptInfo(DeptVO deptVO) {
-		// TODO Auto-generated method stub
-		return null;
+		return deptMapper.selectDeptInfo(deptVO);
 	}
 
 	@Override
 	public int deptInsert(DeptVO deptVO) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = deptMapper.insertDeptInfo(deptVO);
+		return result == 1 ? deptVO.getDepartmentId() : -1;
 	}
 
 	@Override
 	public Map<String, Object> deptUpdate(DeptVO deptVO) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> map = new HashMap<>();
+		boolean Success = false;
+		int result = deptMapper.updateDeptInfo(deptVO.getDepartmentId(), deptVO);
+		if(result == 1) {
+			Success = true;
+		}
+		map.put("result", Success);
+		map.put("target", deptVO);
+		return map;
 	}
 
 	@Override
 	public Map<String, Object> deptDelete(int deptId) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> map = new HashMap<>();
+
+		int result = deptMapper.deleteDeptInfo(deptId);
+		if (result == 1) {
+			map.put("departmentId", deptId);
+		}
+		return map;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
 }

@@ -24,8 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class UploadController {
 
-	@Value("${file.upload.path}") // 실행할 때 1) 환경변수로 넘겨주기 2)properties를 기반으로 파일 넘기기 => 우리는 2번 방식
-	private String uploadPath;
+	@Value("${file.upload.path}") //@Value : 외부 속성(property) 파일이나 환경 변수에 정의된 값을 주입
+	private String uploadPath;// file.upload.path라는 이름의 속성(property) 값을 uploadPath라는 변수에 주입
 
 	@GetMapping("formUpload") // 파일 호출
 	public void formUploadPage() {
@@ -99,7 +99,7 @@ public class UploadController {
 	        // DB에 해당 경로 저장
 	        // 1) 사용자가 업로드할 때 사용한 파일명
 	        // 2) 실제 서버에 업로드할 때 사용한 경로
-	        imageList.add(setImagePath(uploadFileName));
+	        imageList.add(setImagePath(uploadFileName)); // uploadFileNamed으로 이미지 경로를 설정하고, 그 경로를 imageList에 추가 
 	     }
 	    
 	    return imageList;

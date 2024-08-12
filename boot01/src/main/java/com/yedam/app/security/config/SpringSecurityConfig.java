@@ -30,7 +30,7 @@ public class SpringSecurityConfig {
 													 .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN") //hasAuthority로 사용한다면 (ROLE_USER)여야함. 둘 다 같은 메소드임.
 													 .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
 													 .anyRequest().authenticated() // anyRequest : 위 2가지 경우가 아니라면
-				// requestMatchers: 해당 사이트의 시큐리티가 지정될 여러가지 경로들에 대한 권한지정이 가능)
+				// requestMatchers: 특정 경로에 대한 권한을 설정
 				// authenticated : 권한만 명확하다면 접근이 가능
 
 		)

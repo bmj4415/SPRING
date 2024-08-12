@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class WebMvcConfig implements WebMvcConfigurer {//부트가 가지고 있는 기본 설정을 우리가 Overide하겠다
+public class WebMvcConfig implements WebMvcConfigurer {//부트가 가지고 있는 기본 설정을 우리가 Override하겠다
 //인터페이스 내부에 추상메소드 말고 일반 메소드도 가능하도록 되어서(jdk21) 강제성 없이 원하는 부분들만 구현할 수 있게 되었음.
 	
 	@Value("${file.upload.path}")

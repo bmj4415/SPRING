@@ -36,7 +36,6 @@
 		SELECT NVL(MAX(department_id), 0) +1
 		FROM departments
 	</selectKey>
-		<if test="departmentName != null">
 			INSERT INTO departments (
 				department_id 
 				, department_name
@@ -49,7 +48,6 @@
 				, #{managerId}
 				, #{locationId}
 			)
-		</if>
 	</insert>
 	
 	<!-- 수정 -->

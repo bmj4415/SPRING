@@ -48,4 +48,44 @@ AOP는 설계가 쉽지 않음(특히 데이터를 넘기는 부분에서) 하�
  <<과제>>
 departments 테이블 활용
 VO, 매퍼, 서비스, 컨트롤러(REST 방식으로 만드는건 제외), 화면 추가
+
+
+6일차>>
+
+* multipart/form-data : 내부에 파일에 대한 정보가 들어가있는 리퀘스트
+* multipartResolver : 인터페이스(구현클래스는 여러가지가 있음. 부트3에서는 StandardServletMultipartResolver, 부트2에서는 아파치에서 제공하는 CommonsMultipartResolver 등도 있음)
+
+spring.servlet.multipart.file-size-threshold=0B : 메모리에 올려놓을 파일 사이즈를 지정
+spring.servlet.multipart.location=C:/Temp : 경로구분자 변경필요함(\->/)공간의 경로지정(파일 업로드시 오류가 발생할때 그게 서버의 문제인지 메모리의 문제인지 확인하고자 할 때 유용)
+spring.servlet.multipart.max-file-size=1MB : 업로드 가능한 파일의 최대크기 지정(개별파일), 1048576(=1MB, 부트에서만 자동변환해줌)
+spring.servlet.multipart.max-request-size=10MB : 다중 파일의 경우 하나의 리퀘스트에 들어갈 수 있는 파일의 최대 크기 지정, 10485760(=10MB)
+
+
+보안>>
+
+필터 : 사용자의 요청이 들어오면 필터에서 순차적으로 걸러져 들어옴
+
+ssh : userdetailsService가 아니라 provider에서
+
+시큐리티(pom.xml에서 검색=> 시큐리티=> 스프링 시큐리티) => FrontController에 접근하기도 전에 차단을 걺
+
+hasRole : 하나의 권한만 설정가능
+hasAnyRole : 동시에 여러개의 권한을 설정하고 싶을 때
+
+UserDetails <= UserVO(userdetails를 기반으로 만들어짐)
+UserDetails <= Login UserVO(
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  

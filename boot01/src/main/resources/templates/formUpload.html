@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Form 방식(파일 업로드)</title>
+</head>
+<body>
+	<form th:action="@{/uploadForm}" method="post" enctype="multipart/form-data"> <!-- multipart/form-data : 내부적으로 파일을 넘길 때 사용, 반드시 method가 post/put형식(Get 방식X) -->
+	<input type="file" name="files" multiple> <!-- multiple : 파일 다중선택(단, 개별파일/파일 수정 불가), multiple은 기능을 구현할 뿐이기 때문에 추가로 배열을 사용해야 여러개의 파일이 동시 처리 가능함-->
+	<button type="submit">저장</button>
+	</form>
+</body>
+</html>

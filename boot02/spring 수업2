@@ -1,0 +1,13 @@
+common/configs : CDN, js, css
+common/fragments : header, footer, sidebar
+common/layouts : layout
+>> 절대적인 법칙은 아님. 대체로 이렇게 정리함
+
+<<파일 생성 권장(절대적 x)>>
+1.VO
+2.Mapper - Interface(2-1)
+ 		 - xml(2-2)
+3.Service - Interface(3-1)
+		  - Class(3-2)
+4.Controller
+5.View

@@ -27,7 +27,7 @@ public class SpringSecurityConfig {
 		http //Security가 적용될 URI
 		.authorizeHttpRequests((authrize) -> authrize.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()//permitAll : 인증받지 않은 모든 사람을 포함. 즉, 인증/인가와 상관없이 접근하는 모든 사람
 													 .requestMatchers("/", "/all").permitAll() //경로-권한이 한 쌍으로 움직임. 어떤 권한을 가진 사람이 어떤 경로를 이용가능한지.
-													 .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN") //hasAuthority로 사용한다면 (ROLE_USER)여야함. 둘 다 같은 메소드임.
+													 .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN") //hasAuthority로 사용한다면 (ROLE_USER)여야함. 둘 다 같은 메소드임. ** => 하위경로까지
 													 .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
 													 .anyRequest().authenticated() // anyRequest : 위 2가지 경우가 아니라면
 				// requestMatchers: 특정 경로에 대한 권한을 설정
@@ -36,6 +36,8 @@ public class SpringSecurityConfig {
 		)
 		.formLogin(formlogin -> formlogin.defaultSuccessUrl("/all")) //default값이 formLogin 페이지를 활성화해줘야함.
 		.logout(logout -> logout.logoutSuccessUrl("/all").invalidateHttpSession(true));
+		
+		//http.csrf(csrf -> csrf.disable());
 		return http.build();
 	}
 	

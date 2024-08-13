@@ -40,8 +40,8 @@ public class EmpController {
 		model.addAttribute("emps", list); //key와 실제 데이터
 		return "emp/list"; // 3) 데이터를 출력할 페이지 결정
 		
-		//classpath:/templates/  emp/list .html
-		// prefix				 return		suffix
+		//classpath:/templates/  emp/list       .html
+		// prefix				  return		suffix
 		//return하는 문자열에는 절대 '/'가 붙으면 안됨!
 	}
 	
@@ -72,6 +72,9 @@ public class EmpController {
 	@PostMapping("empInsert")
 	public String empInsertProcess(EmpVO empVO) {
 		int eid = empService.empInsert(empVO);
+		
+		
+		//** test하기 위해 if문 을 활용함. 보통 insert문은 0이 넘어올 일이 거-의 없음. 차라리 에러처리를 해야함.
 		String url = null;
 		
 		if(eid > -1) {
@@ -86,8 +89,8 @@ public class EmpController {
 	
 	//수정 - 페이지 : Get(=단건조회)
 	@GetMapping("empUpdate")
-	public String empUpdateForm(EmpVO emoVO, Model model) {
-		EmpVO findVO = empService.empInfo(emoVO);
+	public String empUpdateForm(EmpVO empVO, Model model) {
+		EmpVO findVO = empService.empInfo(empVO);
 		model.addAttribute("emp", findVO);
 		return "emp/update";
 	}

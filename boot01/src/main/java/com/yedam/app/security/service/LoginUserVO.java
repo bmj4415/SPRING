@@ -19,7 +19,7 @@ public class LoginUserVO implements UserDetails {
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() { //Collection : Collection을 상속받은 모든 클래스들이 return값을 사용할 수 있고, GrantedAuthority를 상속??  
-		List<GrantedAuthority> auths = new ArrayList<>();
+		List<GrantedAuthority> auths = new ArrayList<>(); //map을 사용할 수 없음.
 		auths.add(new SimpleGrantedAuthority(userVO.getRoleName()));
 		return auths;
 	}

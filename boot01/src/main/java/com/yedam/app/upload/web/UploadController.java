@@ -20,6 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
 
+//간단하게 작성하기 위해 서비스 기능을 컨트롤러 파일에 넣어놓음. 추후 기능구현을 할 때는 파일을 분리해야함.
+
+
 @Slf4j // 스프링 부트 안에 있는 로그를 불러오는 어노테이션-> //메소드를 이용해서 정보를 출력함.
 @Controller
 public class UploadController {

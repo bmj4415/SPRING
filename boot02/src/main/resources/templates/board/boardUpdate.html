@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container">
+		<form th:object="${board}" name="updateForm">
+			<h3>게시물 수정</h3>
+			<table class="table">
+				<tr>
+					<th>글번호</th>
+					<td><input th:field="*{bno}" type="text" name="bno" readonly></td>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<td><input th:field="*{title}" class="form-control" type="text" name="title"></td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td><textarea name="content" th:field="*{contents}"></textarea></td>
+				</tr>
+				<tr>
+					<th>작성자</th>
+					<td><input class="form-control" th:field="*{writer}" type="text" name="writer"></td>
+				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<!-- 파일명-->
+					<td><input th:field="*{image}" class="form-control" type="text" name="image"></td>
+				</tr>
+			</table>
+			<button type="button" id="updateBtn" class="btn btn-primary" th:onclick="|location.href='@{/boardList}'|">저장</button>
+		</form>
+	</div>
+	<script>
+		function getBoardInfo() {
+			let formData = $('form[name="updateForm"]').serializeArray();
+			let boardObj = {};
+			$.each(formData, function(idx, keyVal) {
+				boardObj[keyVal.name] = keyVal.value;
+			});
+			return boardObj;
+		}
+		
+		//Ajax 파일 보내기
+		$('#updateBtn').on('click', updateAjax)
+		
+		function updateAjax(){
+			//1) 보낼 데이터 가져오기 2) Ajax 보내기
+			let info = getBoardInfo();
+			$.ajax('boardUpdate', {
+				type : 'post',
+				contentType : 'application/json',
+				data : JSON.stringify(info)
+			})
+			.done(result => alert("정상적으로 수정되었습니다!")) 
+			.fail(err => alert("오류가 발생했습니다!"));
+		}
+ 	</script>
+</body>
+</html>

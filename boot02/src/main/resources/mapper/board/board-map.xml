@@ -65,7 +65,7 @@
 	<!-- 삭제 -->
 	<delete id="deleteBoardInfo" parameterType="int">
 		DELETE FROM board
-		WHERE bno = #{boardNo)
+		WHERE bno = #{boardNo}
 	</delete>
 
 </mapper>

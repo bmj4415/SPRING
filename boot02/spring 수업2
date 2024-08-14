@@ -11,3 +11,11 @@ common/layouts : layout
 		  - Class(3-2)
 4.Controller
 5.View
+
+
+8일차>>
+
+링크 표현식의 3번째 사용방법
+
+form [name="title"] : 공백이 있으면 form 태그 하위의 title을 검색하겠다는 뜻
+form[name="title"] : 공백이 없으면 form 태그 중 title을 검색하겠다는 뜻

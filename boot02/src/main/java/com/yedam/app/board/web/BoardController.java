@@ -37,7 +37,8 @@ private BoardService boardService;
 	
 	// 단건조회 : URI - boardInfo / PARAMETER - BoardVO(QueryString)
 	//          RETURN - board/boardInfo
-	@GetMapping("boardInfo")
+	@GetMapping("boardInfo") //커맨드 객체 : QueryString
+							 // ?bno=100
 	public String boardInfo(BoardVO boardVO, Model model) {
 		BoardVO findVO = boardService.boardInfo(boardVO);
 		model.addAttribute("boards", findVO);
@@ -62,7 +63,7 @@ private BoardService boardService;
 	// 수정 - 페이지 : URI - boardUpdate / PARAMETER - BoardVO(QueryString)
 	//               RETURN - board/boardUpdate
 	
-	@GetMapping("boardUpdate")
+	@GetMapping("boardUpdate") //QueryString : ?bno=100
 	public String boardUpdateForm(BoardVO boardVO, Model model) {
 		BoardVO findVO = boardService.boardInfo(boardVO);
 		model.addAttribute("board", findVO);
@@ -81,7 +82,7 @@ private BoardService boardService;
 	// 삭제 - 처리 : URI - boardDelete / PARAMETER - Integer
 	//             RETURN - 전체조회 다시 호출
 
-	@GetMapping("boardDelete")
+	@GetMapping("boardDelete") // QueryString : ?no=100
 	public String boardDelete(/*@RequestParam*/ Integer no) { //@RequestParam을 작성하면 반드시 no의 데이터가 넘어오는걸 가정해야함. 만약 넘어오지 않는 경우 stop되기 때문에.
 		boardService.boardDelete(no);
 		return "redirect:boardList";

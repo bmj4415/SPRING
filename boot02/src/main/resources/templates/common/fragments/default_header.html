@@ -1,15 +1,9 @@
 <!DOCTYPE html>
 <th:block xmlns:th="https://www.thymeleaf.org/" th:fragment="HeaderFrag">
-	<nav class="navbar bg-dark border-bottom border-body"
-		data-bs-theme="dark">
-		<!-- Navbar content -->
-	</nav>
-
-	<nav class="navbar bg-primary" data-bs-theme="dark">
-		<!-- Navbar content -->
-	</nav>
-
-	<nav class="navbar" style="background-color: #e3f2fd;">
-		<!-- Navbar content -->
-	</nav>
+	<ul class="nav">
+		<li class="nav-item"><a class="nav-link" th:href="@{/boardList}">게시판 목록</a></li>
+		<li class="nav-item"><a class="nav-link" th:href="@{/boardInsert}">게시글 등록</a></li>
+		<li class="nav-item"><a class="nav-link disabled"
+			aria-disabled="true">Disabled</a></li>
+	</ul>
 </th:block>

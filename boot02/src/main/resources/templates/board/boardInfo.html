@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<meta name="contextPath" th:content="${contextPath}">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container text-center">
+		<h3>게시물 조회</h3>
+		<form>
+			<table>
+				<tr>
+					<th>글번호</th>
+					<td>[[${boards.bno}]]</td>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<td>[[${boards.title}]]</td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td height=100px width=200px>[[${boards.contents}]]</td>
+				</tr>
+				<tr>
+					<th>작성자</th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>작성일</th>
+					<!-- yyyy/MM/dd -->
+					<td>[[${#dates.format(boards.regdate,'yyyy/MM/dd')}]]</td>
+				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<!-- /images/cat.jpg => cat.jpg는 파일이 변할 때마다 변동됨. 따라서 @PathVariable과 비슷하게 변수를 선언해야함.-->
+					<td><img style="width:50%" th:src="@{/images/{fileName}(fileName=${boards.image})}"></td>
+				</tr>
+			</table>
+		</form>
+		<button type="button" class="btn btn-info" th:onclick="|location.href='@{/boardUpdate(bno=${boards.bno})}'|">수정</button>
+		<button type="button" class="btn btn-success" th:onclick="|location.href='@{/boardList}'|">목록</button>
+		<button type="button" class="btn btn-danger" th:onclick="|location.href='@{/boardDelete(no=${boards.bno})}'|">삭제</button>
+	</div>
+</body>
+</html>
